@@ -4,11 +4,13 @@
       <img
         src="../assets/icon-above-font.png"
         alt="Logo de groupomania"
-        height="200"
+        width="250"
+        class="m-4"
       />
-      <p class="h3 pb-4 pl-4 pr-4">
-        Rejoignez le réseau social de {{ companyName }} et partagez ce que vous
-        aimez !
+      <p class="h3 m-3 m-md-5">
+        Rejoignez le réseau social de
+        <span class="font-weight-bold text-uppercase">{{ companyName }}</span>
+        et partagez ce que vous aimez !
       </p>
       <div id="nav">
         <router-link to="/login"
