@@ -1,5 +1,5 @@
 <template>
-  <div class="footer">
+  <div class="m-4">
     {{ copyright }}
   </div>
 </template>
@@ -14,9 +14,3 @@ export default {
   },
 };
 </script>
-
-<style>
-.footer {
-  margin-top: 3rem;
-}
-</style>
