@@ -1,13 +1,11 @@
 <template>
-  <Register />
+  <router-view />
 </template>
 
-<script>
-import Register from "./components/Register";
-export default {
-  name: "App",
-  components: {
-    Register,
-  },
-};
-</script>
+
+<style>
+* {
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+}
+</style>
