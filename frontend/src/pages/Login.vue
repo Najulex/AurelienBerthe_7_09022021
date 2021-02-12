@@ -53,7 +53,14 @@
           <p id="error-message"></p>
         </div>
         <div class="text-center m-3">
-          <Button text="Se connecter" @click="displayEmail" id="login" />
+          <button
+            @click="displayEmail"
+            id="login"
+            class="btn btn-info"
+            style="font-size: 1.4rem"
+          >
+            Me connecter
+          </button>
         </div>
       </form>
       <div>
@@ -64,11 +71,7 @@
 </template>
 
 <script>
-import Button from "../components/Button";
 export default {
-  components: {
-    Button,
-  },
   methods: {
     displayEmail() {
       alert(

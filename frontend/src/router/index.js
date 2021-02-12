@@ -10,11 +10,6 @@ const routes = [
     component: () => import("@/pages/Index.vue")
   },
   {
-    path: "/home",
-    name: "home",
-    component: () => import("@/pages/Home.vue")
-  },
-  {
     path: '/login',
     name: 'Login',
     component: () => import("@/pages/Login.vue")
@@ -23,7 +18,24 @@ const routes = [
     path: '/signup',
     name: 'Signup',
     component: () => import("@/pages/Signup.vue")
-  }
+  },
+  {
+    path: "/home",
+    name: "Home",
+    component: () => import("@/pages/Home.vue")
+  },
+  {
+    path: '/myAccount',
+    name: 'MyAccount',
+    component: () =>
+      import('@/pages/MyAccount.vue')
+  },
+  {
+    path: '/post',
+    name: 'Post',
+    component: () =>
+      import('@/pages/Post.vue')
+  },
 ]
 
 const router = new VueRouter({

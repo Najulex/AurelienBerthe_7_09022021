@@ -1,12 +1,7 @@
 <template>
-  <div class="container">
-    <button
-      style="font-size: 1.4rem"
-      class="w-75 m-4 pr-3 pl-3 btn btn-primary"
-    >
-      {{ text }}
-    </button>
-  </div>
+  <button style="font-size: 1.6rem" class="w-75 m-4 p-2 btn btn-primary shadow">
+    {{ text }}
+  </button>
 </template>
 
 <script>

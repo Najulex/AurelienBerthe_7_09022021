@@ -62,7 +62,14 @@
           </div>
         </div>
         <div class="text-center m-3">
-          <Button text="Créer mon compte" @click="createUser" id="signup" />
+          <button
+            @click="createUser"
+            id="login"
+            class="btn btn-success"
+            style="font-size: 1.4rem"
+          >
+            Créer mon compte
+          </button>
         </div>
       </form>
       <div>
@@ -73,26 +80,11 @@
 </template>
 
 <script>
-import Button from "../components/Button";
 export default {
-  components: {
-    Button,
-  },
-  props: {
-    newUser: {
-      username: {
-        type: String,
-        required: true,
-      },
-      email: {
-        type: String,
-        required: true,
-      },
-      password: {
-        type: String,
-        required: true,
-      },
-    },
+  data() {
+    return {
+      newUser: "",
+    };
   },
   methods: {
     createUser() {

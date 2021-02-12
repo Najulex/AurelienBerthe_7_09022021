@@ -11,12 +11,14 @@
       <span class="font-weight-bold text-uppercase">{{ companyName }}</span>
       et partagez ce que vous aimez !
     </p>
-    <router-link to="/signup"
-      ><Button class="text-center" text="Je crée mon compte"
-    /></router-link>
-    <router-link to="/login"
-      ><Button class="text-center" text="Je possède un compte"
-    /></router-link>
+    <div class="container text-center">
+      <router-link to="/login"
+        ><Button text="Je possède un compte"
+      /></router-link>
+      <router-link to="/signup"
+        ><Button class="btn-secondary" text="Je crée mon compte"
+      /></router-link>
+    </div>
     <Footer />
   </div>
 </template>
