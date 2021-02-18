@@ -70,7 +70,10 @@
 						username: document.getElementById("inputUsername").value,
 						password: document.getElementById("inputPassword").value,
 					})
-					.then(() => {
+					.then((response) => {
+						let id = response.data.userId;
+						let token = response.data.token;
+						localStorage.setItem('auth', JSON.stringify({id :id, token : token}));
 						window.location = "/home";
 					})
 					.catch((error) => {

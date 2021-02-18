@@ -7,7 +7,7 @@
 				width="250"
 			/>
 		</div>
-		<div class="col-md-6 mr-md-auto ml-md-auto bg-light p-4 mt-5 mb-5">
+		<div class="col-md-8 mr-md-auto ml-md-auto bg-light p-4 mt-5 mb-5">
 			<form>
 				<div class="form-group">
 					<label for="inputEmail">Email</label>
@@ -19,8 +19,7 @@
 						required
 					/>
 				</div>
-				<div class="form-row">
-					<div class="form-group col-md-6">
+				<div class="form-group">
 						<label for="inputUsername">Nom d'utilisateur</label>
 						<input
 							type="text"
@@ -30,6 +29,7 @@
 							required
 						/>
 					</div>
+				<div class="form-row">
 					<div class="form-group col-md-6">
 						<label for="inputPassword">Mot de passe</label>
 						<input
@@ -40,9 +40,19 @@
 							required
 						/>
 					</div>
+					<div class="form-group col-md-6">
+						<label for="inputConfirmPassword">Confirmer votre mot de passe</label>
+						<input
+							type="password"
+							class="form-control"
+							id="inputConfirmPassword"
+							placeholder="********"
+							required
+						/>
+					</div>
 				</div>
 				<div>
-					<p id="error-message"></p>
+					<p id="error-message">Tous les champs sont requis afin de créer un compte.</p>
 				</div>
 				<div class="text-center m-3">
 					<button
@@ -72,15 +82,14 @@
 				let pwd = document.getElementById("inputPassword").value;
 				let email = document.getElementById("inputEmail").value;
 				let username = document.getElementById("inputUsername").value;
+				let confirmpwd = document.getElementById("inputConfirmPassword").value;
 				if (
-					username == "" || email == "" || pwd ==""
+					username == "" || email == "" || pwd =="" || confirmpwd ==""
 				) {
 					document.getElementById('error-message').innerHTML = 'Merci de renseigner tous les champs afin de créer votre compte'
+				} else { if (pwd !== confirmpwd) {
+					document.getElementById('error-message').innerHTML = 'Confirmation du mot de passe différent du mot de passe'
 				} else {
-					if (email.match(/.{1,}@[^.]{1,}/g)) 
-				{
-					if ( pwd.match(/[0-9]/g) && pwd.match(/[A-Z]/g) && pwd.match(/[a-z]/g) && pwd.length >= 8
-				) {
 					axios
 					.post("http://localhost:3000/signup", {
 						username: username,
@@ -88,17 +97,26 @@
 						password: pwd
 					})
 					.then(() => {
+						axios
+					.post("http://localhost:3000/login", {
+						username: document.getElementById("inputUsername").value,
+						password: document.getElementById("inputPassword").value,
+					})
+					.then((response) => {
+						let id = response.data.userId;
+						let token = response.data.token;
+						localStorage.setItem('auth', JSON.stringify({id :id, token : token}));
 						window.location = "/home";
 					})
 					.catch((error) => {
 						document.getElementById("error-message").innerHTML =
 							error.response.data.error;
 					});
-				} else {
-					document.getElementById('error-message').innerHTML = 'Votre mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule et un chiffre.'
-				}
-				} else {
-					document.getElementById('error-message').innerHTML = "Merci d'utiliser une adresse mail valide."
+					})
+					.catch((error) => {
+						document.getElementById("error-message").innerHTML =
+							error.response.data.error;
+					});
 				}
 				}
 			},

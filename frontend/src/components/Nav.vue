@@ -17,10 +17,7 @@
           <router-link class="nav-link" to="/home">Les posts</router-link>
         </li>
         <li class="nav-item">
-          <router-link class="nav-link" to="/post">Postez </router-link>
-        </li>
-        <li class="nav-item">
-          <router-link class="nav-link" to="/myAccount">Mon compte</router-link>
+          <router-link class="nav-link" :to="'/myaccount/' + userId">Mon compte</router-link>
         </li>
         <li class="nav-item">
           <router-link class="nav-link text-danger" to="/"
@@ -31,3 +28,13 @@
     </div>
   </nav>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      userId : JSON.parse(localStorage.getItem('auth')).id
+    }
+  }
+}
+</script>
