@@ -81,6 +81,7 @@ exports.login = (req, res, next) => {
 						return res.status(400).json({ error: "Mot de passe incorrect" });
 					}
 					res.status(200).json({
+						username: user.username,
 						userId: user.id,
 						token: jwt.sign(
 							{ userId: user.id },
@@ -95,12 +96,23 @@ exports.login = (req, res, next) => {
 };
 
 exports.account = (req, res, next) => {
-	User.findOne({ id: req.params.id })
+	User.findByPk(req.params.id)
 		.then((user) => {
 			if (!user) {
-				return res.status(400).json({ error: "user not found" });
+				return res.status(400).json({ error: "Utilisateur non trouvé" });
 			}
-			return res.status(200).json({ user });
+			return res.status(200).json(user);
 		})
-		.catch(() => res.status(500).json({ error: "pb connexion" }));
+		.catch((error) => res.status(500).json({ error }));
+};
+
+exports.delete = (req, res, next) => {
+	User.destroy({ where: { id: req.params.id } })
+		.then(() =>
+			res.status(200).json({
+				message:
+					"Votre compte a bien été supprimé, merci d'avoir utilisé notre application et à bientôt.",
+			})
+		)
+		.catch((error) => res.status(500).json({ error }));
 };

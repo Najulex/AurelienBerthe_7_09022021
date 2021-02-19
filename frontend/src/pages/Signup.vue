@@ -1,11 +1,12 @@
 <template>
 	<div>
 		<div class="text-center m-3">
-			<img
-				src="../assets/icon-above-font.png"
-				alt="Logo de groupomania"
-				width="250"
-			/>
+			<a href="/index"><img
+      src="../assets/icon-above-font.png"
+      alt="Logo de groupomania"
+      width="250"
+      class="m-4"
+    /></a>
 		</div>
 		<div class="col-md-8 mr-md-auto ml-md-auto bg-light p-4 mt-5 mb-5">
 			<form>
@@ -52,7 +53,7 @@
 					</div>
 				</div>
 				<div>
-					<p id="error-message">Tous les champs sont requis afin de créer un compte.</p>
+					<p id="error-message"></p>
 				</div>
 				<div class="text-center m-3">
 					<button

@@ -1,11 +1,12 @@
 <template>
 	<div>
 		<div class="text-center m-3">
-			<img
-				src="../assets/icon-above-font.png"
-				alt="Logo de groupomania"
-				width="250"
-			/>
+			<a href="/index"><img
+      src="../assets/icon-above-font.png"
+      alt="Logo de groupomania"
+      width="250"
+      class="m-4"
+    /></a>
 		</div>
 		<div class="col-md-6 mr-md-auto ml-md-auto bg-light p-4 mb-5 mt-5">
 			<form>
@@ -73,7 +74,8 @@
 					.then((response) => {
 						let id = response.data.userId;
 						let token = response.data.token;
-						localStorage.setItem('auth', JSON.stringify({id :id, token : token}));
+						let username = response.data.username;
+						localStorage.setItem('auth', JSON.stringify({id :id, token : token, username : username}));
 						window.location = "/home";
 					})
 					.catch((error) => {

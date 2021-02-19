@@ -1,11 +1,11 @@
 <template>
   <div>
-    <img
+    <a href="/index"><img
       src="../assets/icon-above-font.png"
       alt="Logo de groupomania"
       width="250"
       class="m-4"
-    />
+    /></a>
     <p class="h3 m-4 m-md-5">
       Rejoignez le réseau social de
       <span class="font-weight-bold text-uppercase">{{ companyName }}</span>

@@ -32,6 +32,8 @@ app.use((req, res, next) => {
 app.use(bodyParser.json());
 
 const userRoutes = require("./routes/user");
+const postRoutes = require("./routes/post");
+app.use(postRoutes);
 app.use(userRoutes);
 
 module.exports = app;
