@@ -10,18 +10,30 @@ const PostModel = require("../models/Post");
 const Post = PostModel(sequelize, Sequelize);
 
 exports.createPost = (req, res, next) => {
+	let url;
+	if (req.file) {
+		url = `${req.protocol}://${req.get("host")}/images/${req.file.filename}`;
+	} else {
+		url = "NULL";
+	}
 	Post.create({
 		username: req.body.username,
-		text: req.body.text,
 		title: req.body.title,
-		imageUrl: req.body.imageUrl,
+		text: req.body.text,
+		imageUrl: url,
 	})
 		.then(() => res.status(200).json({ message: "Post créé" }))
-		.catch((error) => res.status(500).json(error));
+		.catch((error) => res.status(501).json(error));
 };
 
 exports.getAllPosts = (req, res, next) => {
 	Post.findAll({ order: [["createdAt", "DESC"]] })
 		.then((posts) => res.status(200).json({ posts }))
 		.catch((error) => res.status(500).json({ error }));
+};
+
+exports.getUserPosts = (req, res, next) => {
+	Post.findAll({ where: { username: req.params.username } })
+		.then((posts) => res.status(200).json(posts))
+		.catch((error) => res.status(500).json(error));
 };

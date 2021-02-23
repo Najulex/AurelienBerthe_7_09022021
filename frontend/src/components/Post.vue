@@ -26,18 +26,23 @@ export default {
 </script>
 
 <template>
-<div class="card text-center m-4">
-  <div class="card-header">
+<div class="card text-center m-4 shadow">
+  <div v-if="title !== ''" class="card-header background">
     {{ title }}
   </div>
-  <img class="card-img-top" alt="Image postée" :src="imageUrl">
+  <img v-if="imageUrl !== 'NULL'" class="card-img-top" alt="Image postée" :src="imageUrl">
   <div class="card-body">
     <p class="card-text h4">{{ text }}</p>
   </div>
-  <div class="card-footer text-muted">
-    posté par : {{ username }} le : {{ date }}
+  <div class="card-footer text-muted background">
+    posté par : {{ username }}
   </div>
 </div>
 
 </template>
 
+<style lang="scss">
+.background {
+  background-color: #f5fbff;
+}
+</style>

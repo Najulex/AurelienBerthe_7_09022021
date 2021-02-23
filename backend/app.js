@@ -3,6 +3,7 @@ const app = express();
 const bodyParser = require("body-parser");
 const Sequelize = require("sequelize");
 const dbConfig = require("./config/db-config");
+const path = require("path");
 
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
 	dialect: "mysql",
@@ -30,6 +31,8 @@ app.use((req, res, next) => {
 });
 
 app.use(bodyParser.json());
+
+app.use("/images", express.static(path.join(__dirname, "images")));
 
 const userRoutes = require("./routes/user");
 const postRoutes = require("./routes/post");

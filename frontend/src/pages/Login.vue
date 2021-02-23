@@ -11,7 +11,7 @@
 		<div class="col-md-6 mr-md-auto ml-md-auto bg-light p-4 mb-5 mt-5">
 			<form>
 				<div class="form-group">
-					<label for="inputUsername">Username</label>
+					<label for="inputUsername">Nom d'utilisateur</label>
 					<input
 						type="text"
 						class="form-control"
@@ -43,11 +43,12 @@
 						style="font-size: 1.4rem"
 					>
 						Me connecter
+						<i class="fas fa-sign-in-alt"></i>
 					</button>
 				</div>
 			</form>
 			<div>
-				<router-link to="/signup">Je n'ai pas encore de compte.</router-link>
+				<router-link to="/signup">Vous êtes nouveau ? Créez rapidement votre compte.</router-link>
 			</div>
 		</div>
 	</div>

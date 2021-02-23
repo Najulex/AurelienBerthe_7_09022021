@@ -8,13 +8,13 @@
                     <div id="navbarContent" class="collapse navbar-collapse">
                         <ul class="ml-3 navbar-nav">
                             <li class="nav-item active">
-                                <router-link class="nav-link" to="/home">Les posts</router-link>
+                                <router-link class="nav-link" to="/home"><i class="fas fa-clone"></i> Les posts</router-link>
                             </li>
                             <li class="nav-item">
-                                <router-link class="nav-link" :to="'/myaccount/' + userId">Mon compte</router-link>
+                                <router-link class="nav-link" :to="'/myaccount/' + userId"><i class="fas fa-user-circle"></i> Mon compte </router-link>
                             </li>
                             <li class="nav-item">
-                                <p @click="disconnect" id="disconnect" class="nav-link">Se déconnecter</p>
+                                <p @click="disconnect" id="disconnect" class="nav-link">Se déconnecter <i class="fas fa-sign-out-alt"></i></p>
                             </li>
                         </ul>
                     </div>
@@ -44,7 +44,7 @@ export default {
 }
 .nav-link {
   font-size: 1rem;
-  margin-top : 1rem
+  margin-top : 1rem;
 }
 #disconnect {
     color:red;

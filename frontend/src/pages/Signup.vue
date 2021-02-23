@@ -63,6 +63,7 @@
 						style="font-size: 1.4rem"
 					>
 						Créer mon compte
+						<i class="fas fa-user-plus"></i>
 					</button>
 				</div>
 			</form>
@@ -106,7 +107,8 @@
 					.then((response) => {
 						let id = response.data.userId;
 						let token = response.data.token;
-						localStorage.setItem('auth', JSON.stringify({id :id, token : token}));
+						let username = response.data.username
+						localStorage.setItem('auth', JSON.stringify({id :id, token : token, username : username}));
 						window.location = "/home";
 					})
 					.catch((error) => {
