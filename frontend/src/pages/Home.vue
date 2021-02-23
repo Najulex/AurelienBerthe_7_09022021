@@ -25,7 +25,7 @@
           <input id="postTitle" class="form-control" rows="3" type="text" placeholder="Si vous voulez...">
         </div>
         <div class="custom-file">
-          <input type="file" name="file" class="custom-file-input" id="postImage" @change="getFile">
+          <input type="file" name="file" class="custom-file-input" id="postImage" @change="getFile" accept=".jpeg, .jpg, .png">
           <label class="custom-file-label" for="postImage">Une image à partager ?</label>
         </div>
           <button @click="createPost" type="submit" class="btn btn-warning text-dark mt-3">Envoyer</button>

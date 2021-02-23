@@ -12,7 +12,17 @@ const Post = PostModel(sequelize, Sequelize);
 exports.createPost = (req, res, next) => {
 	let url;
 	if (req.file) {
-		url = `${req.protocol}://${req.get("host")}/images/${req.file.filename}`;
+		if (
+			req.file.mimetype == "image/jpg" ||
+			req.file.mimetype == "image/jpeg" ||
+			req.file.mimetype == "image/png"
+		) {
+			url = `${req.protocol}://${req.get("host")}/images/${req.file.filename}`;
+		} else {
+			return res
+				.status(500)
+				.json({ error: "Mauvais format de fichier proposé" });
+		}
 	} else {
 		url = "NULL";
 	}
