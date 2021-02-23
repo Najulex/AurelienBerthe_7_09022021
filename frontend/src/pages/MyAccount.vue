@@ -69,7 +69,7 @@ export default {
       axios.get('http://localhost:3000/post/' + username)
       .then((response)=>  {if (response.data.length == 0) {
       document.getElementById('no-posts').style.display = 'block';
-        document.getElementById('no-posts').innerHTML = "Il semblerait que vous n'ayez encore rien posté, n'hésitez pas à poster ce que vous voulez partager à vos collègues !"
+        document.getElementById('no-posts').innerHTML = "Il semblerait que vous n'ayez encore rien publié, n'hésitez pas à poster ce que vous voulez partager à vos collègues !"
       } else {
         document.getElementById('posts-title').style.display = "block";
         this.posts = response.data

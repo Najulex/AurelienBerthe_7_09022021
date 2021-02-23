@@ -12,53 +12,49 @@ const UserModel = require("../models/User");
 const User = UserModel(sequelize, Sequelize);
 
 exports.signup = (req, res, next) => {
-	if (req.body.username.length > 20) {
+	let pwd = req.body.password;
+	let username = req.body.username;
+	let email = req.body.email;
+	if (username.length > 20) {
 		return res.status(500).json({ error: "Nom d'utilisateur trop long" });
-	} else {
-		if (req.body.email.match(/.{1,}@[^.]{1,}/g)) {
-			let pwd = req.body.password;
-			if (
-				pwd.match(/[0-9]/g) &&
-				pwd.match(/[A-Z]/g) &&
-				pwd.match(/[a-z]/g) &&
-				pwd.length >= 8
-			) {
-				User.findOne({ where: { username: req.body.username } })
-					.then((user) => {
-						if (!user) {
-							bcrypt
-								.hash(req.body.password, 10)
-								.then(function (hash) {
-									User.create({
-										username: req.body.username,
-										email: req.body.email,
-										password: hash,
-									})
-										.then(() =>
-											res.status(201).json({ message: "Utilisateur créé" })
-										)
-										.catch((err) => res.status(500).json({ err }));
-								})
-								.catch((err) => res.status(500).json({ error }));
-						} else {
-							return res
-								.status(400)
-								.json({ error: "Nom d'utilisateur déja utilisé" });
-						}
-					})
-					.catch((error) => res.status(500).json({ error }));
-			} else {
-				return res.status(500).json({
-					error:
-						"Votre mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule et un chiffre.",
-				});
-			}
-		} else {
-			return res
-				.status(500)
-				.json({ error: "Merci d'utiliser une adresse mail valide" });
-		}
 	}
+	if (!email.match(/.{1,}@[^.]{1,}/g)) {
+		return res
+			.status(500)
+			.json({ error: "Merci d'utiliser une adresse mail valide" });
+	}
+	if (
+		!pwd.match(
+			/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{8,30})$/g
+		)
+	) {
+		return res.status(500).json({
+			error:
+				"Votre mot de passe doit contenir entre 8 et 30 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial.",
+		});
+	}
+	User.findOne({ where: { username: username } })
+		.then((user) => {
+			if (!user) {
+				bcrypt
+					.hash(pwd, 10)
+					.then(function (hash) {
+						User.create({
+							username: username,
+							email: email,
+							password: hash,
+						})
+							.then(() => res.status(201).json({ message: "Utilisateur créé" }))
+							.catch((err) => res.status(500).json({ err }));
+					})
+					.catch((err) => res.status(500).json({ error }));
+			} else {
+				return res
+					.status(400)
+					.json({ error: "Nom d'utilisateur déja utilisé" });
+			}
+		})
+		.catch((error) => res.status(500).json({ error }));
 };
 
 exports.login = (req, res, next) => {
