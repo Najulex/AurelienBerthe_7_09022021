@@ -22,7 +22,7 @@
           <input type="file" name="file" class="custom-file-input" id="postImage" @change="getFile">
           <label class="custom-file-label" for="postImage">Une image à partager ?</label>
         </div>
-          <button @click="sendPost" type="submit" class="btn btn-outline-info mt-3">Envoyer</button>
+          <button @click="createPost" type="submit" class="btn btn-outline-info mt-3">Envoyer</button>
       </form>
     </div>
   </div>
@@ -45,6 +45,9 @@
 
 <script>
 const axios = require('axios');
+const auth = localStorage.getItem('auth');
+const token = JSON.parse(auth).token;
+const config = { headers: { Authorization: token}}
 
 import Post from "../components/Post"
 import Nav from "../components/Nav";
@@ -53,10 +56,16 @@ export default {
     Nav,
     Post
   },
-  data() {
-    axios.get('http://localhost:3000/')
+  beforeMount () {
+    if (!token) {
+      alert("Session expirée, merci de vous reconnecter.");
+      window.location = "/index"
+    }
+    axios.get('http://localhost:3000/api/post', config)
       .then((response)=> this.posts = response.data.posts)
       .catch((response)=> console.log(response))
+  },
+  data() {
     return {
       posts : [],
       imageName : "",
@@ -64,15 +73,18 @@ export default {
     } 
   },
   methods : {
-    sendPost() {
+    createPost() {
+      if (!token) {
+      alert("Session expirée, merci de vous reconnecter.");
+      window.location = "/index"
+    }
       const FormData = require('form-data');
       const post = new FormData();
       post.append("image", this.file);
       post.append("title", document.getElementById('postTitle').value);
       post.append("text", document.getElementById('postText').value);
       post.append("username", JSON.parse(localStorage.getItem('auth')).username);
-      console.log('>> post >> ', post);
-      axios.post('http://localhost:3000/', post, {
+      axios.post('http://localhost:3000/api/post', post, config, {
         headers: {
       'Content-Type': 'multipart/form-data'}
       })

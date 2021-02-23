@@ -3,9 +3,10 @@ const router = express.Router();
 
 const postCtrl = require("../controllers/post");
 const multer = require("../middleware/multer-config");
+const auth = require("../middleware/auth");
 
-router.post("/", multer, postCtrl.createPost);
-router.get("/", postCtrl.getAllPosts);
-router.get("/post/:username", postCtrl.getUserPosts);
+router.post("/", auth, multer, postCtrl.createPost);
+router.get("/", auth, postCtrl.getAllPosts);
+router.get("/:username", auth, postCtrl.getUserPosts);
 
 module.exports = router;

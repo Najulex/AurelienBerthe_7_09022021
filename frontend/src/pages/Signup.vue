@@ -93,14 +93,14 @@
 					document.getElementById('error-message').innerHTML = 'Confirmation du mot de passe différent du mot de passe'
 				} else {
 					axios
-					.post("http://localhost:3000/signup", {
+					.post("http://localhost:3000/api/user/signup", {
 						username: username,
 						email: email,
 						password: pwd
 					})
 					.then(() => {
 						axios
-					.post("http://localhost:3000/login", {
+					.post("http://localhost:3000/api/user/login", {
 						username: document.getElementById("inputUsername").value,
 						password: document.getElementById("inputPassword").value,
 					})

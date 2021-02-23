@@ -78,11 +78,10 @@ exports.login = (req, res, next) => {
 					}
 					res.status(200).json({
 						username: user.username,
-						userId: user.id,
 						token: jwt.sign(
 							{ userId: user.id },
 							"xMOlpW5568wRZ27JUamdsj1VfZNI14",
-							{ expiresIn: "24h" }
+							{ expiresIn: "12h" }
 						),
 					});
 				})
@@ -92,7 +91,10 @@ exports.login = (req, res, next) => {
 };
 
 exports.account = (req, res, next) => {
-	User.findByPk(req.params.id)
+	const token = req.headers.authorization;
+	const decodedToken = jwt.verify(token, "xMOlpW5568wRZ27JUamdsj1VfZNI14");
+	const userId = decodedToken.userId;
+	User.findByPk(userId)
 		.then((user) => {
 			if (!user) {
 				return res.status(400).json({ error: "Utilisateur non trouvé" });
@@ -103,7 +105,10 @@ exports.account = (req, res, next) => {
 };
 
 exports.delete = (req, res, next) => {
-	User.destroy({ where: { id: req.params.id } })
+	const token = req.headers.authorization;
+	const decodedToken = jwt.verify(token, "xMOlpW5568wRZ27JUamdsj1VfZNI14");
+	const userId = decodedToken.userId;
+	User.destroy({ where: { id: userId } })
 		.then(() =>
 			res.status(200).json({
 				message:

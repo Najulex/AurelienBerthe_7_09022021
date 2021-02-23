@@ -41,6 +41,9 @@
 <script>
 
 const axios = require('axios');
+let auth = localStorage.getItem('auth');
+let token = JSON.parse(auth).token;
+let config = { headers : { Authorization : token}}
 
 import Nav from "../components/Nav";
 import Post from "../components/Post";
@@ -57,16 +60,23 @@ export default {
   },
   methods : {
     deleteAccount() {
-  let user_id = JSON.parse(localStorage.getItem('auth')).id;
-  axios.delete('http://localhost:3000/' + user_id)
+      if (!token) {
+      alert("Session expirée, merci de vous reconnecter.");
+      window.location = "/index"
+    }
+    axios.delete('http://localhost:3000/api/user/', config)
     .then((response)=> {alert(response.data.message);
     localStorage.clear();
     window.location = "/index"})
     .catch((error)=> {console.log(error);})
 },
     displayPosts() {
-       let username = JSON.parse(localStorage.getItem('auth')).username;
-      axios.get('http://localhost:3000/post/' + username)
+      if (!token) {
+      alert("Session expirée, merci de vous reconnecter.");
+      window.location = "/index"
+    }
+      let username = JSON.parse(localStorage.getItem('auth')).username;
+      axios.get('http://localhost:3000/api/post/' + username, config)
       .then((response)=>  {if (response.data.length == 0) {
       document.getElementById('no-posts').style.display = 'block';
         document.getElementById('no-posts').innerHTML = "Il semblerait que vous n'ayez encore rien publié, n'hésitez pas à poster ce que vous voulez partager à vos collègues !"
@@ -78,8 +88,7 @@ export default {
     },
   },
   beforeMount() {
-    let user_id = JSON.parse(localStorage.getItem('auth')).id;
-    axios.get('http://localhost:3000/' + user_id)
+    axios.get('http://localhost:3000/api/user/', config)
     .then(function (response) {
     document.getElementById('username').innerHTML = response.data.username;
     document.getElementById('email').innerHTML = response.data.email;

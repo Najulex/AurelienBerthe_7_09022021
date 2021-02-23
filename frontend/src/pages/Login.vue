@@ -68,15 +68,14 @@
 					document.getElementById('error-message').innerHTML = "Merci de remplir tous les champs afin de vous connecter."
 				} else {
 				axios
-					.post("http://localhost:3000/login", {
+					.post("http://localhost:3000/api/user/login", {
 						username: document.getElementById("inputUsername").value,
 						password: document.getElementById("inputPassword").value,
 					})
 					.then((response) => {
-						let id = response.data.userId;
 						let token = response.data.token;
 						let username = response.data.username;
-						localStorage.setItem('auth', JSON.stringify({id :id, token : token, username : username}));
+						localStorage.setItem('auth', JSON.stringify({token : token, username : username}));
 						window.location = "/home";
 					})
 					.catch((error) => {
