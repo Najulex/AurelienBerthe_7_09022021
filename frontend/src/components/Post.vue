@@ -32,9 +32,9 @@ export default {
   </div>
   <img v-if="imageUrl !== 'NULL'" class="card-img-top" alt="Image postée" :src="imageUrl">
   <div class="card-body">
-    <p class="card-text h4">{{ text }}</p>
+    <h3 class="card-text h4">{{ text }}</h3>
   </div>
-  <div class="card-footer text-muted background">
+  <div class="card-footer background">
     posté par : {{ username }}
   </div>
 </div>

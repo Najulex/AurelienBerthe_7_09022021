@@ -1,5 +1,5 @@
 <template>
-  <button style="font-size: 1.6rem" class="w-75 m-4 p-2 btn btn-primary shadow">
+  <button class="w-75 m-4 p-2 btn shadow index-btn">
     {{ text }}
   </button>
 </template>
@@ -15,3 +15,9 @@ export default {
   },
 };
 </script>
+
+<style>
+.index-btn {
+  font-size: 1.5rem;
+} 
+</style>

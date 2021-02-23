@@ -1,19 +1,19 @@
 <template>
-  <div class="bg-light mt-4">
+  <div style="background-color: #FED6D7" class="mt-4">
     <div class="container">
       <div class="row py-4">
         <div class="col">
           <ul class="list-inline text-center mb-0">
             <li class="list-inline-item col-12 col-md-3">
-              <a href="#">À propos</a>
+              <a class="footer-link" href="#">À propos</a>
             </li>
             <li class="list-inline-item px-4">&middot;</li>
             <li class="list-inline-item col-12 col-md-3">
-              <a href="#">Vie privée</a>
+              <a class="footer-link" href="#">Vie privée</a>
             </li>
             <li class="list-inline-item px-4">&middot;</li>
             <li class="list-inline-item col-12 col-md-3">
-              <a href="#">Conditions d'utilisations</a>
+              <a class="footer-link" href="#">Conditions d'utilisations</a>
             </li>
           </ul>
         </div>
@@ -35,3 +35,11 @@ export default {
   },
 };
 </script>
+
+<style>
+  .footer-link {
+    color: black;
+    font-style: oblique;
+    font-size: 1.1rem;
+  }
+</style>

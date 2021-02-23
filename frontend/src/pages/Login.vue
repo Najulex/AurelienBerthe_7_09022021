@@ -1,14 +1,18 @@
 <template>
-	<div>
-		<div class="text-center m-3">
-			<a href="/index"><img
+<div id="app">
+	<header>
+<div class="text-center m-3">
+			<router-link to="/index"><img
       src="../assets/icon-above-font.png"
       alt="Logo de groupomania"
       width="250"
       class="m-4"
-    /></a>
+    /></router-link>
 		</div>
-		<div class="col-md-6 mr-md-auto ml-md-auto bg-light p-4 mb-5 mt-5">
+		<RegTitle text="Connectez-vous maintenant"></RegTitle>
+	</header>
+		<main>
+			<div class="col-md-6 mr-md-auto ml-md-auto bg-light p-4 mb-5 mt-5">
 			<form>
 				<div class="form-group">
 					<label for="inputUsername">Nom d'utilisateur</label>
@@ -39,8 +43,7 @@
 					<button
 						@click="displayEmail"
 						id="login"
-						class="btn btn-info"
-						style="font-size: 1.4rem"
+						class="btn btn-warning"
 					>
 						Me connecter
 						<i class="fas fa-sign-in-alt"></i>
@@ -48,16 +51,21 @@
 				</div>
 			</form>
 			<div>
-				<router-link to="/signup">Vous êtes nouveau ? Créez rapidement votre compte.</router-link>
+				<router-link style="color:blue" to="/signup">Vous êtes nouveau ? Créez rapidement votre compte.</router-link>
 			</div>
 		</div>
-	</div>
+		</main>
+</div>
 </template>
 
 <script>
 	const axios = require("axios");
+	import RegTitle from "../components/RegTitle"
 
 	export default {
+		components : {
+			RegTitle
+		},
 		methods: {
 			displayEmail(e) {
 				e.preventDefault();

@@ -47,7 +47,7 @@ export default {
   margin-top : 1rem;
 }
 #disconnect {
-    color:red;
+    color:rgb(170, 0, 0);
     cursor: pointer;
 }
 </style>

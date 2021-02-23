@@ -1,25 +1,29 @@
 <template>
   <div>
-    <a href="/index"><img
+    <header>
+      <router-link to="/index"><img
       src="../assets/icon-above-font.png"
       alt="Logo de groupomania"
       width="250"
       class="m-4"
-    /></a>
-    <p class="h3 m-4 m-md-5">
+    /></router-link>
+    <h1 class="h3 m-4 m-md-5">
       Rejoignez le réseau social de
       <span class="font-weight-bold text-uppercase">{{ companyName }}</span>
       et partagez ce que vous aimez !
-    </p>
-    <div class="container text-center">
+    </h1>
+    </header>
+    <main><div class="container text-center">
       <router-link to="/login"
-        ><Button text="Je possède un compte"
+        ><Button style="background-color:#FED6D7" text="Je possède un compte"
       /></router-link>
       <router-link to="/signup"
         ><Button class="btn-secondary" text="Je crée mon compte"
       /></router-link>
-    </div>
-    <Footer />
+    </div></main>
+    <footer>
+      <Footer />
+    </footer>
   </div>
 </template>
 

@@ -1,8 +1,11 @@
 <template>
   <div id="app">
     <Nav></Nav>
-    <p class="h3 m-3 jumbotron"><i class="fas fa-user-circle"></i> Vos infos</p>
-    <div class="m-4">
+    <header>
+      <h1 class="h3 m-3 jumbotron"><i class="fas fa-user-circle"></i> Vos infos</h1>
+    </header>
+    <main>
+      <div class="m-4">
       <p id="error-message"></p>
       <p class="title"><i class="far fa-user"></i> Nom d'utilisateur : <span id="username"></span></p>
       <p class="title"><i class="fas fa-at"></i> Adresse email : <span id="email"></span></p>
@@ -10,7 +13,7 @@
       <button type="button" class="btn btn-danger" data-toggle="modal" data-target=".bd-example-modal-lg">Supprimer mon compte</button>
     </div>
       <div class="container text-center">
-        <button @click="displayPosts" class="btn btn-outline-success">Voir mes posts</button>
+        <button @click="displayPosts" class="btn btn-warning">Voir mes posts</button>
       </div>
     </div>
     <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -23,6 +26,7 @@
       </div>
     </div>
   </div>
+    </main>
     <section id="posts">
         <p id="posts-title" style="display:none" class="h3 m-4"><i class="fas fa-clone"></i> Mes publications</p>
         <p class="p-4 m-3 text-center" id="no-posts" style="display:none"></p>
