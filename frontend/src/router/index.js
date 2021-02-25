@@ -5,7 +5,7 @@ Vue.use(VueRouter);
 
 const routes = [
 	{
-		path: "/index",
+		path: "/",
 		name: "index",
 		component: () => import("@/pages/Index.vue"),
 	},
@@ -25,7 +25,7 @@ const routes = [
 		component: () => import("@/pages/Home.vue"),
 	},
 	{
-		path: "/myaccount/:id",
+		path: "/myaccount",
 		name: "MyAccount",
 		component: () => import("@/pages/MyAccount.vue"),
 	},

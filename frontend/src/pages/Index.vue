@@ -1,7 +1,7 @@
 <template>
   <div>
     <header>
-      <router-link to="/index"><img
+      <router-link to="/"><img
       src="../assets/icon-above-font.png"
       alt="Logo de groupomania"
       width="250"

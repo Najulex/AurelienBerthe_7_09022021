@@ -66,7 +66,7 @@ export default {
   beforeMount () {
     if (!token) {
       alert("Session expirée, merci de vous reconnecter.");
-      window.location = "/index"
+      window.location = "/"
     }
     axios.get('http://localhost:3000/api/post', config)
       .then((response)=> this.posts = response.data.posts)
@@ -83,7 +83,7 @@ export default {
     createPost() {
       if (!token) {
       alert("Session expirée, merci de vous reconnecter.");
-      window.location = "/index"
+      window.location = "/"
     }
       const FormData = require('form-data');
       const post = new FormData();

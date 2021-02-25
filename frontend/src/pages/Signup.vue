@@ -2,7 +2,7 @@
 	<div id="app">
 		<header>
 			<div class="text-center m-3">
-			<router-link to="/index"><img
+			<router-link to="/"><img
       src="../assets/icon-above-font.png"
       alt="Logo de groupomania"
       width="250"

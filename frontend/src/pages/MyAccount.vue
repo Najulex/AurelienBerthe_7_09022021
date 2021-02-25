@@ -66,18 +66,18 @@ export default {
     deleteAccount() {
       if (!token) {
       alert("Session expirée, merci de vous reconnecter.");
-      window.location = "/index"
+      window.location = "/"
     }
     axios.delete('http://localhost:3000/api/user/', config)
     .then((response)=> {alert(response.data.message);
     localStorage.clear();
-    window.location = "/index"})
+    window.location = "/"})
     .catch((error)=> {console.log(error);})
 },
     displayPosts() {
       if (!token) {
       alert("Session expirée, merci de vous reconnecter.");
-      window.location = "/index"
+      window.location = "/"
     }
       let username = JSON.parse(localStorage.getItem('auth')).username;
       axios.get('http://localhost:3000/api/post/' + username, config)

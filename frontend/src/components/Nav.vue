@@ -11,7 +11,7 @@
                                 <router-link class="nav-link" to="/home"><i class="fas fa-clone"></i> Les posts</router-link>
                             </li>
                             <li class="nav-item">
-                                <router-link class="nav-link" :to="'/myaccount/' + userId"><i class="fas fa-user-circle"></i> Mon compte </router-link>
+                                <router-link class="nav-link" :to="'/myaccount'"><i class="fas fa-user-circle"></i> Mon compte </router-link>
                             </li>
                             <li class="nav-item">
                                 <p @click="disconnect" id="disconnect" class="nav-link">Se déconnecter <i class="fas fa-sign-out-alt"></i></p>
@@ -24,15 +24,10 @@
 
 <script>
 export default {
-  data() {
-    return {
-      userId : JSON.parse(localStorage.getItem('auth')).id
-    }
-  },
   methods : {
     disconnect () {
       localStorage.clear();
-      window.location = "/index"
+      window.location = "/"
     }
   }
 }
