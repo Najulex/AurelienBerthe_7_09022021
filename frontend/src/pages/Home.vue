@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <nav>
+    <div>
       <Nav></Nav>
-    </nav>
+    </div>
     <header class="p-1">
       <h1 class="p-3 text-center text-secondary h2">Retrouvez ici tout ce qui a été partagé</h1>
       <div class="container text-center mt-3 mb-3">
@@ -24,10 +24,10 @@
           <label for="postTitle">Donnez un titre à votre post</label>
           <input id="postTitle" class="form-control" rows="3" type="text" placeholder="Si vous voulez...">
         </div>
-        <div class="custom-file">
-          <input type="file" name="file" class="custom-file-input" id="postImage" @change="getFile" accept=".jpeg, .jpg, .png">
-          <label class="custom-file-label" for="postImage">Une image à partager ?</label>
-        </div>
+          <div class="form-group">
+            <label for="postImage">Une image à partager ?</label>
+            <input type="file" name="file" class="form-control-file" id="postImage" accept=".jpeg, .jpg, .png, .gif">
+          </div>
           <button @click="createPost" type="submit" class="btn btn-warning text-dark mt-3">Envoyer</button>
       </form>
     </div>
@@ -54,7 +54,7 @@
 const axios = require('axios');
 const auth = localStorage.getItem('auth');
 const token = JSON.parse(auth).token;
-const config = { headers: { Authorization: token}}
+const config = { headers: { Authorization: token}};
 
 import Post from "../components/Post"
 import Nav from "../components/Nav";
@@ -74,39 +74,24 @@ export default {
   },
   data() {
     return {
-      posts : [],
-      imageName : "",
-      file : ""
+      posts : []
     } 
   },
   methods : {
-    createPost() {
-      if (!token) {
-      alert("Session expirée, merci de vous reconnecter.");
-      window.location = "/"
-    }
+    createPost(e) {
+      e.preventDefault();
       const FormData = require('form-data');
-      const post = new FormData();
-      post.append("image", this.file);
-      post.append("title", document.getElementById('postTitle').value);
-      post.append("text", document.getElementById('postText').value);
-      post.append("username", JSON.parse(localStorage.getItem('auth')).username);
+      const post = new FormData()
+     post.append("image", document.getElementById('postImage').files[0]);
+     post.append("title", document.getElementById('postTitle').value);
+     post.append("text", document.getElementById('postText').value);
+     post.append("username", JSON.parse(localStorage.getItem('auth')).username);
       if (document.getElementById('postText').value !== "") {
-      axios.post('http://localhost:3000/api/post', post, config, {
-        headers: {
-      'Content-Type': 'multipart/form-data'}
-      })
-    .then(function (response) {
-        console.log(response);
-    })
-    .catch(function (response) {
-        console.log(response);
-    });
+        axios.post('http://localhost:3000/api/post',post, config)
+        .then(()=> window.location ="/home")
+        .catch((response) => console.log(response))
       }
     },
-    getFile(){
-    this.file = document.getElementById('postImage').files[0];
-}
   }
 };
 </script>

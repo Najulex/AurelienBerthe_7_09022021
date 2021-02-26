@@ -6,6 +6,7 @@ const MIME_TYPES = {
 	"image/jpg": "jpg",
 	"image/jpeg": "jpg",
 	"image/png": "png",
+	"image/gif": "gif",
 };
 
 /* création constante storage pour indiquer à multer où stocker les fichiers entrants */
@@ -17,6 +18,10 @@ const storage = multer.diskStorage({
 	/* édition du nom du fichier final contenant le nom d'origine avec underscores au lieu d'espaces 
   puis un time stamp suivi d'un point et l'extension du fichier créée grâce à MIME_TYPES */
 	filename: (req, file, callback) => {
+		const Extension = file.originalname.split(".").pop();
+		if (file.originalname.indexOf(Extension) >= 0) {
+			file.originalname = file.originalname.replace("." + Extension, "_");
+		}
 		const name = file.originalname.split(" ").join("_");
 		const extension = MIME_TYPES[file.mimetype];
 		callback(null, name + Date.now() + "." + extension);
