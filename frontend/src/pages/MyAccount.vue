@@ -13,7 +13,7 @@
       <button type="button" class="btn btn-danger" data-toggle="modal" data-target=".bd-example-modal-lg">Supprimer mon compte</button>
     </div>
       <div class="container text-center">
-        <button @click="displayPosts" class="btn btn-warning">Voir mes posts</button>
+        <button @click="displayPosts" class="btn btn-warning">Gérer mes posts</button>
       </div>
     </div>
     <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -36,7 +36,8 @@
         :username="post.username" 
         :text="post.text" 
         :date="post.createdAt" 
-        :imageUrl="post.imageUrl">
+        :imageUrl="post.imageUrl"
+        @deleteUserPost="deletePost(post.id)">
         </Post>
       </section>
   </div>
@@ -63,6 +64,11 @@ export default {
     }
   },
   methods : {
+    deletePost(id) {
+      axios.delete('http://localhost:3000/api/post/' + id, config)
+      .then(()=> window.location = "/myaccount")
+      .catch((response)=> console.log(response))
+    },
     deleteAccount() {
       if (!token) {
       alert("Session expirée, merci de vous reconnecter.");
@@ -86,7 +92,7 @@ export default {
         document.getElementById('no-posts').innerHTML = "Il semblerait que vous n'ayez encore rien publié, n'hésitez pas à poster ce que vous voulez partager à vos collègues !"
       } else {
         document.getElementById('posts-title').style.display = "block";
-        this.posts = response.data
+        this.posts = response.data;
       }})
       .catch((response)=> {console.log(response)})
     },

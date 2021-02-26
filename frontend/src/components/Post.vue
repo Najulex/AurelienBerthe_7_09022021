@@ -1,6 +1,16 @@
 <script>
 export default {
 	name: "posts",
+  data() {
+    return {
+      url : window.location.pathname
+    }
+  },
+  methods : {
+    deletePost() {
+      this.$emit('deleteUserPost')
+    }
+  },
 	props: {
 		title: {
 			type: String,
@@ -21,12 +31,13 @@ export default {
     imageUrl: {
       type: String
     }
-	},
+	}
 }
 </script>
 
 <template>
-<div class="card text-center m-4 shadow">
+
+<div style="position:relative" class="card text-center m-4 shadow">
   <div v-if="title !== ''" class="card-header background">
     {{ title }}
   </div>
@@ -37,6 +48,9 @@ export default {
   <div class="card-footer background">
     posté par : {{ username }}
   </div>
+  <div>
+    <button id="delete-btn" v-if="url == '/myaccount'" @click="deletePost" class="btn btn-danger" title="Supprimer"><i class="far fa-trash-alt"></i></button>
+  </div>
 </div>
 
 </template>
@@ -44,5 +58,13 @@ export default {
 <style lang="scss">
 .background {
   background-color: #f5fbff;
+}
+#delete-btn {
+  width:5rem;
+  height:5rem;
+  position:absolute;
+  top:1rem;
+  right:1rem;
+  font-size: 2rem;
 }
 </style>

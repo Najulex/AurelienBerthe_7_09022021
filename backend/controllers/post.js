@@ -1,5 +1,6 @@
 const Sequelize = require("sequelize");
 const dbConfig = require("../config/db-config");
+const fs = require("fs");
 
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
 	dialect: "mysql",
@@ -36,4 +37,17 @@ exports.getUserPosts = (req, res, next) => {
 	Post.findAll({ where: { username: req.params.username } })
 		.then((posts) => res.status(200).json(posts))
 		.catch((error) => res.status(500).json(error));
+};
+
+exports.deletePost = (req, res, next) => {
+	Post.findOne({ where: { id: req.params.id } })
+		.then((post) => {
+			const filename = post.imageUrl.split("/images/")[1];
+			fs.unlink(`images/${filename}`, () => {
+				Post.destroy({ where: { id: req.params.id } })
+					.then(() => res.status(200).json({ message: "Post supprimée !" }))
+					.catch((error) => res.status(400).json({ error }));
+			});
+		})
+		.catch((error) => res.status(500).json({ error }));
 };
