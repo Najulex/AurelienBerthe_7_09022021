@@ -3,18 +3,30 @@
 ## frontend
 
 ```
-tourne avec VUE CLI - taper la commande : npm run serve
+Ouvrir terminal sur frontend -
+taper d'abord la commande 'npm install'
+puis la commande 'npm install --save axios'
+et enfin la commande 'npm run serve'
 ```
 
 ### backend
 
 ```
-tourne avec Node - taper la commande : nodemon serve
+Pour connexion à l'API :
+ouvrir terminal sur backend -
+taper la commande 'npm install' puis taper la commande 'node server'
 ```
 
 ## base de données
 
 ```
+Pour créer la BDD :
+se connecter à MySQL - taper la commande 'mysql -u admin -p' puis taper le mot de passe
+puis créer la base de données - taper la commande 'CREATE DATABASE groupomania'
+puis se connecter à la base de données - taper la commande 'USE groupomania'
+puis créer les tables avec le fichier de sauvegarde à insérer dans le dossier source
+en tapant la commande 'SOURCE groupomania_sauvegarde.sql'
+
 nom de la base de données : groupomania,
 utilisateur : admin,
 password : GP_ad_PWD_2021,

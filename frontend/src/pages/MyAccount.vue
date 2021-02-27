@@ -12,22 +12,15 @@
       <div class="container mb-3 text-center">
       <button type="button" class="btn btn-danger" data-toggle="modal" data-target=".bd-example-modal-lg">Supprimer mon compte</button>
     </div>
-      <div class="container text-center">
-        <button @click="displayPosts" class="btn btn-warning">Gérer mes posts</button>
-      </div>
-    </div>
-    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content p-3 font-weight-bold h5">
-        <p>Attention! Cette action est irréversible! Etes-vous sûr(e) de vouloir supprimer votre profil ?</p>
-        <div class="text-center">
-          <button @click="deleteAccount" class="btn btn-danger">Oui, supprimer mon profil</button>
-        </div>
-      </div>
-    </div>
+    <p>
+  <div class="container text-center mb-4">
+    <button @click="displayPosts" class="btn btn-warning" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+    Gérer mes posts
+  </button>
   </div>
-    </main>
-    <section id="posts">
+<div class="collapse" id="collapseExample">
+  <div class="card">
+   <section id="posts">
         <p id="posts-title" style="display:none" class="h3 m-4"><i class="fas fa-clone"></i> Mes publications</p>
         <p class="p-4 m-3 text-center" id="no-posts" style="display:none"></p>
         <Post v-for="post in posts" 
@@ -40,6 +33,21 @@
         @deleteUserPost="deletePost(post.id)">
         </Post>
       </section>
+  </div>
+</div>
+    </div>
+    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content p-3 font-weight-bold h5">
+        <p>Attention! Cette action est irréversible! Etes-vous sûr(e) de vouloir supprimer votre profil ?</p>
+        <div class="text-center">
+          <button @click="deleteAccount" class="btn btn-danger">Oui, supprimer mon profil</button>
+        </div>
+      </div>
+    </div>
+  </div>
+    </main>
+    
   </div>
 </template>
 

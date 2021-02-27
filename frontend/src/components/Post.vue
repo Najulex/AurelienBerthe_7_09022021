@@ -38,7 +38,7 @@ export default {
 <template>
 
 <div style="position:relative" class="card text-center m-4 shadow">
-  <div v-if="title !== ''" class="card-header background">
+  <div v-if="title !== ''" class="card-header h5 p-4 background">
     {{ title }}
   </div>
   <img v-if="imageUrl !== 'NULL'" class="card-img-top" alt="Image postée" :src="imageUrl">
@@ -49,7 +49,7 @@ export default {
     posté par : {{ username }}
   </div>
   <div>
-    <button id="delete-btn" v-if="url == '/myaccount'" @click="deletePost" class="btn btn-danger" title="Supprimer"><i class="far fa-trash-alt"></i></button>
+    <button id="delete-btn" v-if="url == '/myaccount'" @click="deletePost" class="btn btn-outline-danger" title="Supprimer"><i class="far fa-trash-alt"></i></button>
   </div>
 </div>
 
@@ -60,11 +60,11 @@ export default {
   background-color: #f5fbff;
 }
 #delete-btn {
-  width:5rem;
-  height:5rem;
-  position:absolute;
-  top:1rem;
-  right:1rem;
-  font-size: 2rem;
+  width: 3.5rem;
+  height: 3.5rem;
+  position: absolute;
+  top: .3rem;
+  right: .3rem;
+  font-size: 1.9rem;
 }
 </style>
