@@ -2,6 +2,7 @@ const Sequelize = require("sequelize");
 const dbConfig = require("../config/db-config");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const fs = require("fs");
 
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
 	dialect: "mysql",
@@ -10,6 +11,9 @@ const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
 
 const UserModel = require("../models/User");
 const User = UserModel(sequelize, Sequelize);
+
+const PostModel = require("../models/Post");
+const Post = PostModel(sequelize, Sequelize);
 
 exports.signup = (req, res, next) => {
 	let pwd = req.body.password;
@@ -108,12 +112,27 @@ exports.delete = (req, res, next) => {
 	const token = req.headers.authorization;
 	const decodedToken = jwt.verify(token, "xMOlpW5568wRZ27JUamdsj1VfZNI14");
 	const userId = decodedToken.userId;
-	User.destroy({ where: { id: userId } })
-		.then(() =>
-			res.status(200).json({
-				message:
-					"Votre compte a bien été supprimé, merci d'avoir utilisé notre application et à bientôt.",
-			})
-		)
+
+	User.findOne({ where: { id: userId } })
+		.then((user) => {
+			Post.findAll({ where: { username: user.username } })
+				.then((posts) => {
+					posts.forEach((post) => {
+						const filename = post.imageUrl.split("/images/")[1];
+						fs.unlink(`images/${filename}`, () => {
+							console.log("image supprimée");
+						});
+					});
+					User.destroy({ where: { id: userId } })
+						.then(() =>
+							res.status(200).json({
+								message:
+									"Compte supprimé avec succès, merci d'avoir utilisé notre application et à bientôt.",
+							})
+						)
+						.catch((error) => res.status(501).json({ error }));
+				})
+				.catch((error) => res.status(500).json({ error }));
+		})
 		.catch((error) => res.status(500).json({ error }));
 };

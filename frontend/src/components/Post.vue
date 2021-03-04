@@ -38,12 +38,12 @@ export default {
 <template>
 
 <div style="position:relative" class="card text-center m-4 shadow">
-  <div v-if="title !== ''" class="card-header h5 p-4 background">
+  <div id="post-title" v-if="title !== ''" class="card-header h5 p-4 background">
     {{ title }}
   </div>
   <img v-if="imageUrl !== 'NULL'" class="card-img-top" alt="Image postée" :src="imageUrl">
   <div class="card-body">
-    <h3 class="card-text h4">{{ text }}</h3>
+    <h3 id="post-text" class="card-text h4">{{ text }}</h3>
   </div>
   <div class="card-footer background">
     posté par : {{ username }}
@@ -60,11 +60,21 @@ export default {
   background-color: #f5fbff;
 }
 #delete-btn {
-  width: 3.5rem;
-  height: 3.5rem;
+  width: 2.5rem;
+  height: 2.5rem;
   position: absolute;
-  top: .3rem;
+  bottom: .3rem;
   right: .3rem;
-  font-size: 1.9rem;
+  font-size: 1rem;
 }
+</style>
+
+<style>
+  #post-text {
+    font-size: 1rem;
+    text-align: left;
+  }
+  #post-title {
+    font-size: 1.1rem;
+  }
 </style>
