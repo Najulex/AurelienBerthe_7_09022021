@@ -20,6 +20,12 @@
           <label for="postText">Votre message</label>
           <textarea class="form-control" id="postText" rows="3" placeholder="Qu'avez-vous à dire aujourd'hui?" required></textarea>
         </div>
+            <div id="alert-message" class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>Attention!</strong> Merci de compléter le champ 'message' qui est obligatoire !
+            <button @click="closeAlertMessage" type="button" class="close" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
         <div class="form-group mt-3">
           <label for="postTitle">Donnez un titre à votre post</label>
           <input id="postTitle" class="form-control" rows="3" type="text" placeholder="Si vous voulez...">
@@ -42,7 +48,8 @@
         :username="post.username" 
         :text="post.text" 
         :date="post.createdAt" 
-        :imageUrl="post.imageUrl">
+        :imageUrl="post.imageUrl"
+        :id="post.id">
         </Post>
       </section>
     </div>
@@ -78,20 +85,31 @@ export default {
     } 
   },
   methods : {
+    closeAlertMessage() {
+      document.getElementById('alert-message').style.display = "none"
+    },
     createPost(e) {
       e.preventDefault();
       const FormData = require('form-data');
       const post = new FormData()
-     post.append("image", document.getElementById('postImage').files[0]);
-     post.append("title", document.getElementById('postTitle').value);
-     post.append("text", document.getElementById('postText').value);
-     post.append("username", JSON.parse(localStorage.getItem('auth')).username);
+      post.append("image", document.getElementById('postImage').files[0]);
+      post.append("title", document.getElementById('postTitle').value);
+      post.append("text", document.getElementById('postText').value);
+      post.append("username", JSON.parse(localStorage.getItem('auth')).username);
       if (document.getElementById('postText').value !== "") {
         axios.post('http://localhost:3000/api/post',post, config)
         .then(()=> window.location ="/home")
         .catch((response) => console.log(response))
+      } else {
+        document.getElementById('alert-message').style.display = "block"
       }
     },
   }
 };
 </script>
+
+<style>
+#alert-message{
+  display: none
+}
+</style>

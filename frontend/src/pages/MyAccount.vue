@@ -25,12 +25,14 @@
         <p class="p-4 m-3 text-center" id="no-posts" style="display:none"></p>
         <Post v-for="post in posts" 
         :key="post.id" 
+        :id="post.id"
         :title="post.title" 
         :username="post.username" 
         :text="post.text" 
         :date="post.createdAt" 
         :imageUrl="post.imageUrl"
-        @deleteUserPost="deletePost(post.id)">
+        @deleteUserPost="deletePost(post.id)"
+        @getPostId="getPostId(post.id)">
         </Post>
       </section>
   </div>
@@ -46,6 +48,44 @@
       </div>
     </div>
   </div>
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modifier mon post</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="updatePostForm" class="border p-3 shadow">
+        <div class="form-group">
+          <label for="text">Votre message</label>
+          <textarea id="postText" name="text" class="form-control" rows="3" placeholder="Qu'avez-vous à dire aujourd'hui?" required></textarea>
+        </div>
+        <div id="alert-message" class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong>Attention!</strong> Merci de compléter le champ 'message' qui est obligatoire !
+  <button @click="closeAlertMessage" type="button" class="close" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+        <div class="form-group mt-3">
+          <label for="title">Donnez un titre à votre post</label>
+          <input id="postTitle" name="title" class="form-control" rows="3" type="text" placeholder="Si vous voulez...">
+        </div>
+          <div class="form-group">
+            <label for="image">Une image à partager ?</label>
+            <input id="postImage"  type="file" name="image" class="form-control-file" accept=".jpeg, .jpg, .png, .gif">
+          </div>
+           <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+        <button @click="updatePost" type="button" class="btn btn-primary">Enregistrer</button>
+      </div>
+      </form>
+      </div>
+    </div>
+  </div>
+</div>
     </main>
     
   </div>
@@ -68,10 +108,33 @@ export default {
   },
   data() {
     return {
-      posts : []
+      posts : [],
+      postId : ""
     }
   },
   methods : {
+    closeAlertMessage() {
+      document.getElementById('alert-message').style.display = "none"
+    },
+    getPostId(id) {
+      console.log(id);
+      this.postId = id
+    },
+    updatePost(e) {
+      e.preventDefault();
+      const FormData = require('form-data');
+      const post = new FormData()
+      post.append("image", document.getElementById('postImage').files[0]);
+      post.append("title", document.getElementById('postTitle').value);
+      post.append("text", document.getElementById('postText').value);
+      if (document.getElementById('postText').value !== "") {
+        axios.put('http://localhost:3000/api/post/' + this.postId, post, config)
+        .then(()=> window.location ="/myaccount")
+        .catch((response) => console.log(response))
+      } else {
+        document.getElementById('alert-message').style.display = "block";
+      }
+    },
     deletePost(id) {
       axios.delete('http://localhost:3000/api/post/' + id, config)
       .then(()=> window.location = "/myaccount")
@@ -119,6 +182,9 @@ export default {
 </script>
 
 <style>
+#alert-message{
+  display: none
+}
 .title ,.btn {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size : 1.2rem

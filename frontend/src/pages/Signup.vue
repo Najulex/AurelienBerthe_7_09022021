@@ -41,7 +41,7 @@
 							type="password"
 							class="form-control"
 							id="inputPassword"
-							placeholder="********"
+							placeholder="ex : 11AAaa@@"
 							required
 						/>
 					</div>

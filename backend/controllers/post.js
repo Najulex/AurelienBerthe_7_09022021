@@ -51,3 +51,31 @@ exports.deletePost = (req, res, next) => {
 		})
 		.catch((error) => res.status(500).json({ error }));
 };
+
+exports.updatePost = (req, res, next) => {
+	Post.findOne({ id: req.params.id }).then((post) => {
+		if (req.file) {
+			const filename = post.imageUrl.split("/images/")[1];
+			fs.unlink(`images/${filename}`, () => {
+				post
+					.update({
+						title: req.body.title,
+						text: req.body.text,
+						imageUrl: `${req.protocol}://${req.get("host")}/images/${
+							req.file.filename
+						}`,
+					})
+					.then(() => res.status(200).json({ message: "Post modifié !" }))
+					.catch((error) => res.status(400).json({ error }));
+			});
+		} else {
+			post
+				.update({
+					title: req.body.title,
+					text: req.body.text,
+				})
+				.then(() => res.status(200).json({ message: "Post modifié !" }))
+				.catch((error) => res.status(400).json({ error }));
+		}
+	});
+};
